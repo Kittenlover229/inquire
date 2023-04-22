@@ -19,7 +19,8 @@ path = "src/lib.rs"
 doctest = true
 
 [features]
-default = ["macros", "crossterm"]
+default = ["macros", "crossterm", "explorer"]
+explorer = []
 macros = []
 date = ["chrono"]
 editor = ["tempfile"]
@@ -81,3 +82,7 @@ required-features = ["macros"]
 [[example]]
 name = "manual_date_input"
 required-features = ["date"]
+
+[[example]]
+name = "explorer"
+required-features = ["explorer"]

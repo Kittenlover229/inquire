@@ -11,6 +11,8 @@ mod multiselect;
 mod password;
 mod select;
 mod text;
+#[cfg(feature = "explorer")]
+mod explorer;
 
 pub use confirm::Confirm;
 pub use custom_type::CustomType;
@@ -22,3 +24,5 @@ pub use multiselect::MultiSelect;
 pub use password::{Password, PasswordDisplayMode};
 pub use select::Select;
 pub use text::Text;
+#[cfg(feature = "explorer")]
+pub use explorer::Explorer;

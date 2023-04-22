@@ -109,6 +109,33 @@ where
     }
 }
 
+
+use std::{path};
+
+#[cfg(feature = "explorer")]
+pub trait PathValidator: DynClone {
+    /// Confirm the given input path is valid.
+    fn validate(&self, input: &'_ path::Path) -> Result<Validation, CustomUserError>;
+}
+
+#[cfg(feature = "explorer")]
+impl Clone for Box<dyn PathValidator> {
+    fn clone(&self) -> Self {
+        dyn_clone::clone_box(&**self)
+    }
+}
+
+#[cfg(feature = "explorer")]
+impl<F> PathValidator for F
+where
+    F: Fn(&path::Path) -> Result<Validation, CustomUserError> + Clone,
+{
+    fn validate(&self, input: &path::Path) -> Result<Validation, CustomUserError> {
+        (self)(input)
+    }
+}
+
+
 /// Validator used in [`DateSelect`](crate::DateSelect) prompts.
 ///
 /// If the input provided by the user is valid, your validator should return `Ok(Validation::Valid)`.
